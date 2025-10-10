@@ -195,6 +195,18 @@ function render_packet_comparison(frm, dialog) {
                 </table>
             </div>
 
+            <div class="col-md-6 packet-card">
+                <h5>${to_packet}</h5>
+                <table class="packet-table">
+                    <thead>
+                        <tr><th>Item Name</th><th>Qty</th></tr>
+                    </thead>
+                    <tbody id="to-items">
+                        ${to_items.map(i => `<tr data-row="${i.name}"><td>${i.item_name}</td><td>${i.qty}</td></tr>`).join('')}
+                    </tbody>
+                </table>
+            </div>
+
         </div>
         `;
 
