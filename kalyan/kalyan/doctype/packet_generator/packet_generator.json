@@ -1,0 +1,170 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{KL}-{PACKET}-{####}",
+ "creation": "2025-10-09 16:23:36.638108",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_zvuf",
+  "from_branch",
+  "source_warehouse",
+  "to_be_delivered",
+  "item_group",
+  "packet_uom",
+  "column_break_qgpp",
+  "to_branch",
+  "target_warehouse",
+  "route",
+  "status",
+  "section_break_rxav",
+  "scan_barcode",
+  "section_break_jikv",
+  "items",
+  "total_quantity",
+  "section_break_megn",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_zvuf",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Packet Generator",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "from_branch",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "From Branch",
+   "options": "Branch",
+   "reqd": 1
+  },
+  {
+   "fieldname": "source_warehouse",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Source Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_qgpp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "to_branch",
+   "fieldtype": "Link",
+   "label": "To Branch",
+   "options": "Branch",
+   "reqd": 1
+  },
+  {
+   "fieldname": "target_warehouse",
+   "fieldtype": "Link",
+   "label": "Target Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_megn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "to_be_delivered",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "To be delivered",
+   "reqd": 1
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Link",
+   "label": "Route",
+   "options": "Route"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nPacking\nPacked\nBundled"
+  },
+  {
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Group",
+   "options": "Item Group",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_jikv",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "items",
+   "options": "Packet Items"
+  },
+  {
+   "fieldname": "section_break_rxav",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "scan_barcode",
+   "fieldtype": "Data",
+   "label": "Scan Barcode",
+   "options": "Barcode"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_quantity",
+   "fieldtype": "Float",
+   "label": "Total Quantity",
+   "read_only": 1
+  },
+  {
+   "fieldname": "packet_uom",
+   "fieldtype": "Link",
+   "label": "Packet UOM",
+   "options": "UOM"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-10-10 02:51:19.199255",
+ "modified_by": "Administrator",
+ "module": "kalyan",
+ "name": "Packet Generator",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
