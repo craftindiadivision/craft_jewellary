@@ -1,0 +1,132 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2025-10-09 17:06:05.535205",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "bundle",
+  "column_break_kqyk",
+  "source_warehouse",
+  "section_break_ehmw",
+  "packing_items",
+  "section_break_kyqo",
+  "locker",
+  "naming_series",
+  "amended_from",
+  "custom_selected_items",
+  "custom_custom_items_visible",
+  "custom_locker_select",
+  "custom_transferred_items"
+ ],
+ "fields": [
+  {
+   "fieldname": "bundle",
+   "fieldtype": "Link",
+   "label": "Bundle",
+   "options": "Bundle Creator"
+  },
+  {
+   "fieldname": "column_break_kqyk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "source_warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "section_break_ehmw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "packing_items",
+   "fieldtype": "Table",
+   "label": "Packing Items",
+   "options": "Packet Item"
+  },
+  {
+   "fieldname": "section_break_kyqo",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "locker",
+   "fieldtype": "Link",
+   "label": "Target Locker",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "UB-"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Unbundling",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "custom_selected_items",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Selected Items",
+   "options": "Packet Item"
+  },
+  {
+   "default": "0",
+   "fieldname": "custom_custom_items_visible",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Custom Items Visible"
+  },
+  {
+   "fieldname": "custom_locker_select",
+   "fieldtype": "Button",
+   "label": "Pull Items"
+  },
+  {
+   "fieldname": "custom_transferred_items",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Transferred Items",
+   "options": "Packet Item"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-10-10 14:23:31.340461",
+ "modified_by": "Administrator",
+ "module": "kalyan",
+ "name": "Unbundling",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
