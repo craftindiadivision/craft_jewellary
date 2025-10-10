@@ -67,7 +67,10 @@ def create_stock_entry_on_submit(doc, method):
                         "t_warehouse": doc.to_warehouse,
                         "qty": item_row.qty or 1,
                         "uom": item_row.uom or "",
-                        "branch":branch
+                        "branch":branch,
+                        "use_serial_batch_fields":1,
+                        "serial_no":item_row.serial_nos
+
                     })
 
     if not items:
