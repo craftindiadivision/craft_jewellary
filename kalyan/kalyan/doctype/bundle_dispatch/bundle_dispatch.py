@@ -26,12 +26,18 @@ def create_stock_entry_on_submit(doc, method):
     # --------------------------
     # Create Stock Entry
     # --------------------------
+    branch = None
+    if doc.from_warehouse:
+        branch = frappe.db.get_value("Warehouse", doc.from_warehouse, "custom_branch")
+   
     stock_entry = frappe.new_doc("Stock Entry")
     stock_entry.stock_entry_type = "Material Transfer"
     stock_entry.add_to_transit = 1
     stock_entry.from_warehouse = doc.from_warehouse
     stock_entry.to_warehouse = doc.courier_agent
     stock_entry.bundle_dispatch = doc.name
+    # stock_entry.branch = doc.branch
+    
 
     items = []
 
@@ -60,6 +66,7 @@ def create_stock_entry_on_submit(doc, method):
                         "t_warehouse": doc.courier_agent,
                         "qty": item_row.qty or 1,
                         "uom": item_row.uom or "",
+                        "branch":branch
                     })
 
     if not items:

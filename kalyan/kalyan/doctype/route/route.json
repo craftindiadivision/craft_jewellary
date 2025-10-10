@@ -7,10 +7,15 @@
  "engine": "InnoDB",
  "field_order": [
   "route",
+<<<<<<< Updated upstream
   "section_break_xkps",
   "from_destination",
   "column_break_toso",
   "to_destination"
+=======
+  "section_break_vvni",
+  "branches"
+>>>>>>> Stashed changes
  ],
  "fields": [
   {
@@ -20,6 +25,7 @@
    "unique": 1
   },
   {
+<<<<<<< Updated upstream
    "fieldname": "from_destination",
    "fieldtype": "Data",
    "label": "From Destination "
@@ -36,12 +42,26 @@
   {
    "fieldname": "column_break_toso",
    "fieldtype": "Column Break"
+=======
+   "fieldname": "section_break_vvni",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "branches",
+   "fieldtype": "Table",
+   "label": "Branches",
+   "options": "Route Child"
+>>>>>>> Stashed changes
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
+<<<<<<< Updated upstream
  "modified": "2025-10-10 12:36:07.493537",
+=======
+ "modified": "2025-10-10 14:09:05.360651",
+>>>>>>> Stashed changes
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Route",

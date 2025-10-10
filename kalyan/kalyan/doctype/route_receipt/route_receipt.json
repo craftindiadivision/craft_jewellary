@@ -1,0 +1,126 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2025-10-10 13:51:38.965342",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_esdo",
+  "from_branch",
+  "dispatched_on",
+  "route",
+  "column_break_ripu",
+  "to_branch",
+  "received_on",
+  "branch",
+  "section_break_cczk",
+  "bundle",
+  "naming_series",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_esdo",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "from_branch",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "From Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "to_branch",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "To Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "bundle",
+   "fieldtype": "Table",
+   "label": "Bundle",
+   "options": "Bundle Details"
+  },
+  {
+   "fieldname": "dispatched_on",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Dispatched On"
+  },
+  {
+   "fieldname": "received_on",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Received On"
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Link",
+   "label": "Route",
+   "options": "Route"
+  },
+  {
+   "fieldname": "section_break_cczk",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_ripu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "RR-"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Route Receipt",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-10-10 14:07:24.969107",
+ "modified_by": "Administrator",
+ "module": "kalyan",
+ "name": "Route Receipt",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

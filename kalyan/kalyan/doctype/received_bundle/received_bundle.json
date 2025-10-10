@@ -14,9 +14,9 @@
   "route",
   "column_break_sljy",
   "date",
+  "status",
   "section_break_ykxz",
   "bundles",
-  "amended_from",
   "naming_series"
  ],
  "fields": [
@@ -70,16 +70,6 @@
    "options": "Bundle Details"
   },
   {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Bundle Dispatch",
-   "print_hide": 1,
-   "read_only": 1,
-   "search_index": 1
-  },
-  {
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "hidden": 1,
@@ -87,21 +77,19 @@
    "options": "RB-"
   },
   {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Bundle Dispatch",
-   "print_hide": 1,
-   "read_only": 1,
-   "search_index": 1
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-10-09 23:05:38.777446",
+ "modified": "2025-10-10 14:05:26.007238",
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Received Bundle",
