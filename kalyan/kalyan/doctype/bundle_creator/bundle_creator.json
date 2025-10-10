@@ -8,9 +8,11 @@
  "field_order": [
   "from_branch",
   "to_be_delivered",
+  "from_warehouse",
   "column_break_boac",
   "to_branch",
   "route",
+  "to_warehouse",
   "section_break_jypf",
   "packet_items",
   "section_break_68km",
@@ -67,13 +69,25 @@
    "fieldname": "to_be_delivered",
    "fieldtype": "Date",
    "label": "Packet Date"
+  },
+  {
+   "fieldname": "from_warehouse",
+   "fieldtype": "Link",
+   "label": "From Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "to_warehouse",
+   "fieldtype": "Link",
+   "label": "To Warehouse",
+   "options": "Warehouse"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-10-09 18:34:44.715888",
+ "modified": "2025-10-10 11:03:45.198100",
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Bundle Creator",

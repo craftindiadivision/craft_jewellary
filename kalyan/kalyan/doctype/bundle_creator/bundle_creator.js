@@ -254,3 +254,26 @@ function swap_item_between_packets(from_packet, to_packet, row_name, dialog) {
         }
     });
 }
+frappe.ui.form.on("Bundle Creator", {
+    refresh: function(frm) {
+        // Filter source_warehouse based on from_branch
+        frm.set_query("from_warehouse", function() {
+            if (frm.doc.from_branch) {
+                return {
+                    filters: {
+                        custom_branch: frm.doc.from_branch
+                    }
+                };
+            }
+        });
+        frm.set_query("to_warehouse", function() {
+            if (frm.doc.to_branch) {
+                return {
+                    filters: {
+                        custom_branch: frm.doc.to_branch
+                    }
+                };
+            }
+        });
+    },
+});

@@ -137,13 +137,14 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+    "Bundle Dispatch": {
+        "on_submit": "kalyan.kalyan.doctype.bundle_dispatch.bundle_dispatch.create_stock_entry_on_submit"
+    },
+    "Received Bundle": {
+        "on_submit": "kalyan.kalyan.doctype.received_bundle.received_bundle.create_stock_entry_on_submit"
+    }
+}
 
 # Scheduled Tasks
 # ---------------

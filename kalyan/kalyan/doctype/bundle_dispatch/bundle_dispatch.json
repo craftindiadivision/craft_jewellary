@@ -1,0 +1,126 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2025-10-09 17:06:11.791021",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_sswg",
+  "from_warehouse",
+  "to_be_delivered",
+  "column_break_xdye",
+  "to_warehouse",
+  "column_break_dzjq",
+  "courier_agent",
+  "column_break_sljy",
+  "route",
+  "section_break_ykxz",
+  "bundles",
+  "amended_from",
+  "naming_series"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_sswg",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "from_warehouse",
+   "fieldtype": "Link",
+   "label": "From Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "column_break_xdye",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "to_warehouse",
+   "fieldtype": "Link",
+   "label": "To Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "column_break_dzjq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "courier_agent",
+   "fieldtype": "Link",
+   "label": "Courier Agent",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "column_break_sljy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Link",
+   "label": "Route",
+   "options": "Route"
+  },
+  {
+   "fieldname": "section_break_ykxz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "bundles",
+   "fieldtype": "Table",
+   "label": "Bundles",
+   "options": "Bundle Details"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Bundle Dispatch",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "BD-"
+  },
+  {
+   "fieldname": "to_be_delivered",
+   "fieldtype": "Date",
+   "label": "To be Delivered"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-10-10 10:57:51.383888",
+ "modified_by": "Administrator",
+ "module": "kalyan",
+ "name": "Bundle Dispatch",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "kalyan@gmail.com",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
