@@ -44,3 +44,11 @@ function fetch_matching_bundles(frm) {
         });
     }
 }
+frappe.ui.form.on('Bundle Dispatch', {
+    refresh: function(frm) {
+        // Show E-Way Bill button always (or you can conditionally show it)
+        frm.add_custom_button(__('E-Way Bill'), function() {
+            frappe.msgprint(__('E-Way Bill button clicked!'));
+        });
+    }
+});
