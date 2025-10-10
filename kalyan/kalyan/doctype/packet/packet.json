@@ -1,0 +1,54 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2025-10-09 16:56:32.334896",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "table_gdsi",
+  "naming_series"
+ ],
+ "fields": [
+  {
+   "fieldname": "table_gdsi",
+   "fieldtype": "Table",
+   "label": "Packet Items",
+   "options": "Packet Item"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "P-"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-10-09 18:30:32.627174",
+ "modified_by": "Administrator",
+ "module": "kalyan",
+ "name": "Packet",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
