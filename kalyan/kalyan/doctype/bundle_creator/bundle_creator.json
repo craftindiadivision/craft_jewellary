@@ -15,6 +15,7 @@
   "to_warehouse",
   "section_break_jypf",
   "packet_items",
+  "total_bundle_value",
   "section_break_68km",
   "amended_from"
  ],
@@ -81,13 +82,20 @@
    "fieldtype": "Link",
    "label": "To Warehouse",
    "options": "Warehouse"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_bundle_value",
+   "fieldtype": "Float",
+   "label": "Total Bundle Value",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-10-10 11:03:45.198100",
+ "modified": "2025-10-10 12:54:44.694380",
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Bundle Creator",

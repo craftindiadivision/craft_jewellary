@@ -9,7 +9,8 @@
   "packet_id",
   "item_group",
   "quantity",
-  "uom"
+  "uom",
+  "packet_value"
  ],
  "fields": [
   {
@@ -38,13 +39,19 @@
    "in_list_view": 1,
    "label": "Uom",
    "options": "UOM"
+  },
+  {
+   "fieldname": "packet_value",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Packet Value"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-10-09 17:50:25.984715",
+ "modified": "2025-10-10 12:47:18.022553",
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Bundle Items",

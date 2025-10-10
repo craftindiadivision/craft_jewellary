@@ -7,6 +7,7 @@
  "engine": "InnoDB",
  "field_order": [
   "section_break_zvuf",
+  "purpose",
   "from_branch",
   "source_warehouse",
   "to_be_delivered",
@@ -21,7 +22,10 @@
   "scan_barcode",
   "section_break_jikv",
   "items",
+  "section_break_jvpe",
   "total_quantity",
+  "column_break_korv",
+  "total_packet_value",
   "section_break_megn",
   "amended_from"
  ],
@@ -45,8 +49,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "From Branch",
-   "options": "Branch",
-   "reqd": 1
+   "options": "Branch"
   },
   {
    "fieldname": "source_warehouse",
@@ -64,15 +67,13 @@
    "fieldname": "to_branch",
    "fieldtype": "Link",
    "label": "To Branch",
-   "options": "Branch",
-   "reqd": 1
+   "options": "Branch"
   },
   {
    "fieldname": "target_warehouse",
    "fieldtype": "Link",
    "label": "Target Warehouse",
-   "options": "Warehouse",
-   "reqd": 1
+   "options": "Warehouse"
   },
   {
    "fieldname": "section_break_megn",
@@ -89,7 +90,8 @@
    "fieldname": "route",
    "fieldtype": "Link",
    "label": "Route",
-   "options": "Route"
+   "options": "Route",
+   "reqd": 1
   },
   {
    "fieldname": "status",
@@ -136,14 +138,36 @@
    "fieldname": "packet_uom",
    "fieldtype": "Link",
    "label": "Packet UOM",
-   "options": "UOM"
+   "options": "UOM",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_jvpe",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_korv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_packet_value",
+   "fieldtype": "Float",
+   "label": "Total Packet Value",
+   "read_only": 1
+  },
+  {
+   "fieldname": "purpose",
+   "fieldtype": "Select",
+   "label": "Purpose",
+   "options": "\nTo Branch\nTo Franchise"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-10-10 02:51:19.199255",
+ "modified": "2025-10-10 14:13:27.669158",
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Packet Generator",

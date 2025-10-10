@@ -13,7 +13,7 @@ frappe.ui.form.on("Bundle Creator", {
                     to_be_delivered: 1,
                     to_be_delivered: frm.doc.to_be_delivered  // optional if you want same date filter
                 },
-                fields: ["name", "item_group", "total_quantity","packet_uom"]
+                fields: ["name", "item_group", "total_quantity","packet_uom","total_packet_value"]
             },
             callback: function(r) {
                 if (r.message) {
@@ -23,6 +23,7 @@ frappe.ui.form.on("Bundle Creator", {
                         child.item_group = d.item_group;
                         child.quantity = d.total_quantity;
                         child.uom = d.packet_uom;
+                        child.packet_value = d.total_packet_value;
                     });
                     frm.refresh_field("packet_items");
                 }
@@ -51,9 +52,35 @@ function open_unbundle_dialog(frm) {
             title: 'Unbundle Packets (Drag & Drop)',
             size: 'extra-large',
             fields: [
-                { fieldname: 'from_packet', label: 'From Packet', fieldtype: 'Link', options: 'Packet Generator', reqd: 1, onchange: () => render_packet_comparison(frm, d) },
-                { fieldname: 'to_packet', label: 'To Packet', fieldtype: 'Link', options: 'Packet Generator', reqd: 1, onchange: () => render_packet_comparison(frm, d) },
-                { fieldname: 'html_area', fieldtype: 'HTML', options: '<div id="packet-comparison" style="padding:10px;">Select packets to compare...</div>' }
+                {
+                    fieldname: 'from_packet',
+                    label: 'From Packet',
+                    fieldtype: 'Link',
+                    options: 'Packet Generator',
+                    reqd: 1,
+                    get_query: function() {
+                        let packet_ids = (frm.doc.packet_items || []).map(i => i.packet_id);
+                        return { filters: { name: ['in', packet_ids] } };
+                    },
+                    onchange: () => render_packet_comparison(frm, d)
+                },
+                {
+                    fieldname: 'to_packet',
+                    label: 'To Packet',
+                    fieldtype: 'Link',
+                    options: 'Packet Generator',
+                    reqd: 1,
+                    get_query: function() {
+                        let packet_ids = (frm.doc.packet_items || []).map(i => i.packet_id);
+                        return { filters: { name: ['in', packet_ids] } };
+                    },
+                    onchange: () => render_packet_comparison(frm, d)
+                },
+                {
+                    fieldname: 'html_area',
+                    fieldtype: 'HTML',
+                    options: '<div id="packet-comparison" style="padding:10px;">Select packets to compare...</div>'
+                }
             ],
             primary_action_label: 'Close',
             primary_action() { d.hide(); }
@@ -68,6 +95,7 @@ function open_unbundle_dialog(frm) {
         }, 200);
     });
 }
+
 
 function render_packet_comparison(frm, dialog) {
     let from_packet = dialog.get_value('from_packet');
@@ -121,17 +149,23 @@ function render_packet_comparison(frm, dialog) {
             /* Table styling */
             .packet-table {
                 width: 100%;
-                border-collapse: separate;
-                border-spacing: 0;
+                border-collapse: collapse;
+                table-layout: fixed;  /* Fix column widths */
                 font-family: 'Inter', sans-serif;
                 font-size: 0.95rem;
             }
-            .packet-table thead th {
-                background: rgba(255,255,255,0.15);
-                backdrop-filter: blur(6px);
+            .packet-table th, .packet-table td {
                 padding: 8px;
-                text-align: center;
+                text-align: left;
                 border-bottom: 1px solid rgba(255,255,255,0.2);
+                word-wrap: break-word;
+            }
+            .packet-table th:nth-child(2), .packet-table td:nth-child(2) {
+                text-align: center;   /* Qty centered */
+                width: 80px;          /* Fixed width for Qty */
+            }
+            .packet-table th:nth-child(1), .packet-table td:nth-child(1) {
+                width: calc(100% - 80px); /* Remaining width for Item Name */
             }
             .packet-table tbody tr {
                 cursor: grab;
@@ -151,7 +185,7 @@ function render_packet_comparison(frm, dialog) {
         <div class="row" style="display:flex; gap:20px; flex-wrap: wrap;">
             <div class="col-md-6 packet-card">
                 <h5>${from_packet}</h5>
-                <table class="table packet-table">
+                <table class="packet-table">
                     <thead>
                         <tr><th>Item Name</th><th>Qty</th></tr>
                     </thead>
@@ -163,9 +197,20 @@ function render_packet_comparison(frm, dialog) {
 
             <div class="col-md-6 packet-card">
                 <h5>${to_packet}</h5>
-                <table class="table packet-table">
+                <table class="packet-table">
                     <thead>
                         <tr><th>Item Name</th><th>Qty</th></tr>
+                    </thead>
+                    <tbody id="to-items">
+                        ${to_items.map(i => `<tr data-row="${i.name}"><td>${i.item_name}</td><td>${i.qty}</td></tr>`).join('')}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6 packet-card">
+                <h5>${to_packet}</h5>
+                <table class="packet-table">
+                    <thead>
+                        <tr><th>SKU Code</th><th>Qty</th></tr>
                     </thead>
                     <tbody id="to-items">
                         ${to_items.map(i => `<tr data-row="${i.name}"><td>${i.item_name}</td><td>${i.qty}</td></tr>`).join('')}
@@ -177,15 +222,15 @@ function render_packet_comparison(frm, dialog) {
 
         dialog.get_field('html_area').$wrapper.html(html);
 
-        // Initialize Sortable with advanced visual effects
+        // Initialize Sortable for drag & drop
         ['from-items','to-items'].forEach(id => {
             new Sortable(document.getElementById(id), {
                 group: 'packets',
                 animation: 300,
                 ghostClass: 'dragging',
-                onStart: function(evt) { evt.item.style.cursor = 'grabbing'; },
-                onEnd: function(evt) { evt.item.style.cursor = 'grab'; },
-                onAdd: function(evt) {
+                onStart: evt => evt.item.style.cursor = 'grabbing',
+                onEnd: evt => evt.item.style.cursor = 'grab',
+                onAdd: evt => {
                     let target_packet = id === 'from-items' ? dialog.get_value('from_packet') : dialog.get_value('to_packet');
                     let source_packet = id === 'from-items' ? dialog.get_value('to_packet') : dialog.get_value('from_packet');
                     handle_drag(evt, target_packet, source_packet, dialog);
@@ -194,6 +239,7 @@ function render_packet_comparison(frm, dialog) {
         });
     });
 }
+
 
 
 function handle_drag(evt, target_packet, source_packet, dialog) {
