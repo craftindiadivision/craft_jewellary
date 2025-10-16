@@ -7,6 +7,9 @@
  "engine": "InnoDB",
  "field_order": [
   "route",
+  "begin_from",
+  "column_break_sosg",
+  "end",
   "section_break_vvni",
   "branches"
  ],
@@ -26,12 +29,28 @@
    "fieldtype": "Table",
    "label": "Branches",
    "options": "Route Child"
+  },
+  {
+   "fieldname": "begin_from",
+   "fieldtype": "Link",
+   "label": "Begin From",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "column_break_sosg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "end",
+   "fieldtype": "Link",
+   "label": "End",
+   "options": "Branch"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-10-10 14:41:35.002645",
+ "modified": "2025-10-16 10:23:34.000448",
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Route",

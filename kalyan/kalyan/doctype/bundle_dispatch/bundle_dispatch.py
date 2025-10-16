@@ -2,7 +2,7 @@
 # For license information, please see license.txt
 import frappe
 from frappe.model.document import Document
-
+from frappe.utils import nowdate
 class BundleDispatch(Document):
     pass
 
@@ -105,8 +105,31 @@ def create_stock_entry_on_submit(doc, method):
     # Save Draft Received Bundle
     received_bundle.insert(ignore_permissions=True)
 
-    frappe.msgprint(f"Received Bundle <b>{received_bundle.name}</b> created for Bundle Dispatch <b>{doc.name}</b>.")
+# --------------------------------------------------
+#  create route receipt
+# ----------------------------------
+    route_doc = frappe.get_doc("Route", doc.route)
 
+    for row in route_doc.branches:
+
+        route_receipt = frappe.new_doc("Route Receipt")
+        route_receipt.route = route_doc.name
+        route_receipt.branch = row.branch
+        route_receipt.from_branch = doc.from_branch
+        route_receipt.to_branch = doc.to_branch
+        route_receipt.dispatched_on = nowdate()
+        for i in doc.bundles:
+            if i.bundle:
+                route_receipt.append("bundle", {
+                    "bundle": i.bundle
+                })
+
+
+        route_receipt.insert(ignore_permissions=True)
+
+
+    frappe.msgprint(f"Received Bundle <b>{received_bundle.name}</b> created for Bundle Dispatch <b>{doc.name}</b>.")
+  
 
 
 @frappe.whitelist()
