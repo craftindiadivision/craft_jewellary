@@ -315,3 +315,23 @@ function create_stock_transfer(frm) {
         }
     );
 }
+// frappe.ui.form.on('Unbundling', {
+//     setup: function(frm) {
+//         frappe.call({
+//             method:"kalyan.kalyan.doctype.unbundling.unbundling.get_bundles",
+//             args:{
+//                 received_bundle:frm.doc.received_bundle
+//             },
+//             callback:function(r){
+//                 if(r.message){
+//                     frm.set_query("bundle",function(){
+//                         return{
+//                             filters:[["name","in",r.message]]
+//                         }
+//                     })
+//                 }
+//             }
+//         })
+//     }
+// });
+

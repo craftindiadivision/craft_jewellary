@@ -82,7 +82,7 @@ def create_stock_entry_on_submit(doc, method):
     stock_entry.insert(ignore_permissions=True)
     stock_entry.submit()
 
-    frappe.msgprint(f"Stock Entry <b>{stock_entry.name}</b> created successfully for Bundle Dispatch <b>{doc.name}</b>.")
+    frappe.msgprint(f"Transferred Successfully")
 
     # --------------------------
     # Create Received Bundle (Draft)

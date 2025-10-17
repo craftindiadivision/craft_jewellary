@@ -7,16 +7,15 @@
  "engine": "InnoDB",
  "field_order": [
   "section_break_zvuf",
-  "purpose",
   "from_branch",
   "source_warehouse",
-  "item_group",
   "to_be_delivered",
+  "item_group",
+  "packet_uom",
   "column_break_qgpp",
   "to_branch",
   "target_warehouse",
   "route",
-  "packet_uom",
   "status",
   "section_break_rxav",
   "scan_barcode",
@@ -98,6 +97,8 @@
   {
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Status",
    "options": "\nPacking\nPacked\nBundled"
   },
@@ -157,18 +158,13 @@
    "fieldtype": "Float",
    "label": "Total Packet Value",
    "read_only": 1
-  },
-  {
-   "fieldname": "purpose",
-   "fieldtype": "Select",
-   "label": "Purpose",
-   "options": "\nTo Branch\nTo Franchise"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2025-10-17 11:05:21.646802",
+ "modified": "2025-10-17 14:27:40.578889",
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Packet Generator",

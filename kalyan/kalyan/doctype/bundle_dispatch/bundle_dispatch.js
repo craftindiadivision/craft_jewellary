@@ -83,7 +83,15 @@ frappe.ui.form.on('Bundle Dispatch', {
                 };
             }
         });
-    
+          frm.set_query("to_warehouse", function() {
+            if (frm.doc.to_branch) {
+                return {
+                    filters: {
+                        "custom_branch": frm.doc.to_branch
+                    }
+                };
+            }
+        });
     },
 
     refresh: function(frm) {

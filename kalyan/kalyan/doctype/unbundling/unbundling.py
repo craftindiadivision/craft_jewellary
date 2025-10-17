@@ -238,3 +238,13 @@ def create_stock_entry_from_unbundling_internal(doc):
     se.submit()
     
     return se.name
+# @frappe.whitelist()
+# def get_bundles(received_bundle):
+#     if not received_bundle:
+#         return []
+#     received_bundle_doc = frappe.get_doc("Received Bundle",received_bundle)
+#     bundles = []
+#     for row in received_bundle_doc.bundles:
+#         if row.bundle:
+#             bundles.append(row.bundle)
+#     return bundles
