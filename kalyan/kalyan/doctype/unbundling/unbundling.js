@@ -205,7 +205,7 @@ frappe.ui.form.on("Unbundling", {
                             row.item_name = item.item_name;
                             row.qty = item.qty;
                             row.uom = item.uom;
-                            // row.serial_no = item.serial_no || "";
+                             row.serial_no = item.serial_no;
                         });
                         frm.refresh_field("packing_items");
                     }
@@ -295,6 +295,7 @@ function create_stock_transfer(frm) {
                             message: "Materials Transferred to Locker.",
                             indicator: "green"
                         });
+                        
 
                         if (!frm.doc.custom_transferred_items) {
                             frm.set_value("custom_transferred_items", []);

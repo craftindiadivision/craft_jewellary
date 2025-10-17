@@ -172,7 +172,6 @@ class Unbundling(Document):
     #     target_doc
     # )
 
-
 @frappe.whitelist()
 def get_bundle_details(bundle_creator_name):
     """Fetch all items from Packet Generator inside the selected Bundle Creator."""
@@ -187,7 +186,7 @@ def get_bundle_details(bundle_creator_name):
                 "item_name": item.item_name,
                 "qty": item.qty,
                 "uom": item.uom,
-                "serial_no": getattr(item, "serial_no", "")
+               "serial_no": item.serial_nos 
             })
     
     return {"items": all_items}
@@ -204,8 +203,14 @@ def create_stock_entry_from_unbundling(docname):
     return "Stock Entry Created"
 
 
+
+
+
+
+
 def create_stock_entry_from_unbundling_internal(doc):
-    """Create Material Transfer Stock Entry from selected items."""
+    """Create Material Transfer Stock Entry from custom_selected_items (one serial per item)."""
+    
     if not doc.custom_selected_items:
         frappe.throw("No items selected for transfer.")
 
@@ -215,45 +220,21 @@ def create_stock_entry_from_unbundling_internal(doc):
     se.to_warehouse = doc.locker
 
     for d in doc.custom_selected_items:
-        item_doc = frappe.get_doc("Item", d.item_code)
+        if not d.serial_no:
+            frappe.throw(f"Serial No required for item {d.item_code}")
+        
+        se.append("items", {
+            "item_code": d.item_code,
+            "item_name": d.item_name,
+            "qty": 1,
+            "uom": d.uom,
+            "s_warehouse": doc.source_warehouse,
+            "t_warehouse": doc.locker,
+            "serial_no": d.serial_no,
+            "use_serial_batch_fields": 1
+        })
 
-        if item_doc.has_serial_no:
-            if not d.serial_no:
-                frappe.throw(f"Serial No required for serialized item {d.item_code}")
-            serials = [s.strip() for s in d.serial_no.split(",")]
-            for sn in serials:
-                se.append("items", {
-                    "item_code": d.item_code,
-                    "item_name": d.item_name,
-                    "qty": 1,
-                    "uom": d.uom,
-                    "s_warehouse": doc.source_warehouse,
-                    "t_warehouse": doc.locker,
-                    "serial_no": sn
-                })
-
-        elif item_doc.has_batch_no:
-            if not d.serial_no:
-                frappe.throw(f"Batch No required for batch-tracked item {d.item_code}")
-            se.append("items", {
-                "item_code": d.item_code,
-                "item_name": d.item_name,
-                "qty": d.qty,
-                "uom": d.uom,
-                "s_warehouse": doc.source_warehouse,
-                "t_warehouse": doc.locker,
-                "batch_no": d.serial_no
-            })
-
-        else:
-            se.append("items", {
-                "item_code": d.item_code,
-                "item_name": d.item_name,
-                "qty": d.qty,
-                "uom": d.uom,
-                "s_warehouse": doc.source_warehouse,
-                "t_warehouse": doc.locker
-            })
-
-    se.insert()
+    se.insert(ignore_permissions=True)
     se.submit()
+    
+    return se.name
