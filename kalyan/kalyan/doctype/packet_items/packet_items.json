@@ -47,9 +47,10 @@
   },
   {
    "fieldname": "serial_nos",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "SKU Code"
+   "label": "SKU Code",
+   "options": "Serial No"
   },
   {
    "fetch_from": "item_code.valuation_rate",
@@ -70,7 +71,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-10-10 11:57:29.731092",
+ "modified": "2025-10-17 15:39:56.607085",
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Packet Items",

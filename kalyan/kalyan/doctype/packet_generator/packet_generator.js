@@ -20,16 +20,24 @@ frappe.ui.form.on("Packet Generator", {
             }
         });
     },
-scan_barcode: function(frm) {
+    scan_barcode: function(frm) {
         const serial_no = frm.doc.scan_barcode?.trim();
         if (!serial_no) return;
+        if (!frm.doc.source_warehouse) {
+            frappe.show_alert({
+                message: "⚠️ Please select Source Warehouse first!",
+                indicator: "orange"
+            });
+            frm.set_value("scan_barcode", "");
+            return;
+        }
 
         frappe.call({
             method: "frappe.client.get_value",
             args: {
                 doctype: "Serial No",
                 filters: { name: serial_no },
-                fieldname: ["item_code", "item_name"]
+                fieldname: ["item_code", "item_name", "warehouse"]
             },
             callback: function(r) {
                 if (!r.message) {
@@ -41,9 +49,19 @@ scan_barcode: function(frm) {
                     return;
                 }
 
-                const { item_code, item_name } = r.message;
+                const { item_code, item_name, warehouse } = r.message;
 
-                // Check if this serial already exists in the table
+                // 🚫 Skip if serial not in the selected source warehouse
+                if (warehouse !== frm.doc.source_warehouse) {
+                    frappe.show_alert({
+                        message: `⛔ ${serial_no} is not available in ${frm.doc.source_warehouse}`,
+                        indicator: 'red'
+                    });
+                    frm.set_value("scan_barcode", "");
+                    return;
+                }
+
+                // ✅ Check if serial already exists in the table
                 const already_exists = (frm.doc.items || []).some(
                     d => d.serial_nos === serial_no
                 );
@@ -57,7 +75,7 @@ scan_barcode: function(frm) {
                     return;
                 }
 
-                // Fetch UOM and Rate from Item master
+                // ✅ Fetch UOM and Rate from Item master
                 frappe.call({
                     method: "frappe.client.get_value",
                     args: {
@@ -66,7 +84,7 @@ scan_barcode: function(frm) {
                         fieldname: ["stock_uom", "valuation_rate"]
                     },
                     callback: function(item_r) {
-                        let uom = (item_r.message?.stock_uom) || "Nos";
+                        let uom = item_r.message?.stock_uom || "Nos";
                         let rate = parseFloat(item_r.message?.valuation_rate || 0);
                         let qty = 1;
 
@@ -93,7 +111,8 @@ scan_barcode: function(frm) {
                 });
             }
         });
-    }
+}
+
 });
 
 frappe.ui.form.on("Packet Items", {
