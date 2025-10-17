@@ -150,6 +150,9 @@ doc_events = {
     },
     "Received Bundle": {
         "on_submit": "kalyan.kalyan.doctype.received_bundle.received_bundle.create_stock_entry_on_submit"
+    },
+    "Route Receipt": {
+        "validate": "kalyan.kalyan.doctype.bundle_dispatch.bundle_dispatch.update_received_bundle_status"
     }
 }
 

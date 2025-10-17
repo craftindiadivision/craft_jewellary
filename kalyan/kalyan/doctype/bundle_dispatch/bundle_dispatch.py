@@ -3,14 +3,16 @@
 import frappe
 from frappe.model.document import Document
 from frappe.utils import nowdate
+
 class BundleDispatch(Document):
     pass
 
 
 def create_stock_entry_on_submit(doc, method):
     """
-    Automatically create a Material Transfer Stock Entry
-    and a Received Bundle (Draft) when Bundle Dispatch is submitted.
+    Automatically create a Material Transfer Stock Entry,
+    Route Receipts (first), and then a Received Bundle (Draft)
+    when Bundle Dispatch is submitted.
     """
 
     # Validation
@@ -29,15 +31,13 @@ def create_stock_entry_on_submit(doc, method):
     branch = None
     if doc.from_warehouse:
         branch = frappe.db.get_value("Warehouse", doc.from_warehouse, "custom_branch")
-   
+
     stock_entry = frappe.new_doc("Stock Entry")
     stock_entry.stock_entry_type = "Material Transfer"
     stock_entry.add_to_transit = 1
     stock_entry.from_warehouse = doc.from_warehouse
     stock_entry.to_warehouse = doc.transit_warehouse
     stock_entry.bundle_dispatch = doc.name
-    # stock_entry.branch = doc.branch
-    
 
     items = []
 
@@ -46,18 +46,14 @@ def create_stock_entry_on_submit(doc, method):
         if not row.bundle:
             continue
 
-        # Get the linked Bundle Creator document
         bundle_creator = frappe.get_doc("Bundle Creator", row.bundle)
 
-        # Loop through each packet item in Bundle Creator
         for packet_row in bundle_creator.packet_items:
             if not packet_row.packet_id:
                 continue
 
-            # Get Packet Generator document
             packet_doc = frappe.get_doc("Packet Generator", packet_row.packet_id)
 
-            # Collect items from Packet Generator
             for item_row in packet_doc.items:
                 if item_row.item_code:
                     items.append({
@@ -66,55 +62,29 @@ def create_stock_entry_on_submit(doc, method):
                         "t_warehouse": doc.transit_warehouse,
                         "qty": item_row.qty or 1,
                         "uom": item_row.uom or "",
-                        "branch":branch,
-                        "use_serial_batch_fields":1,
-                        "serial_no":item_row.serial_nos
+                        "branch": branch,
+                        "use_serial_batch_fields": 1,
+                        "serial_no": item_row.serial_nos
                     })
 
     if not items:
         frappe.throw("No items found in linked Bundles (via Packets) to create Stock Entry.")
 
-    # Add items to Stock Entry
     for item in items:
         stock_entry.append("items", item)
 
-    # Save and Submit Stock Entry
     stock_entry.insert(ignore_permissions=True)
     stock_entry.submit()
 
-    frappe.msgprint(f"Transferred Successfully")
+    frappe.msgprint("Transferred Successfully")
 
-    # --------------------------
-    # Create Received Bundle (Draft)
-    # --------------------------
-    received_bundle = frappe.new_doc("Received Bundle")
-    received_bundle.from_warehouse = doc.transit_warehouse  # courier agent acts as source
-    received_bundle.to_warehouse = doc.to_warehouse
-    received_bundle.from_branch=doc.from_branch
-    received_bundle.to_branch=doc.to_branch
-    received_bundle.route = doc.route
-    received_bundle.bundle_dispatch = doc.name
-    received_bundle.date = frappe.utils.nowdate()
-    # received_bundle.workflow_state = "Pending"
-    # received_bundle.bundle_dispatch = doc.name  # optional link
-
-    # Copy bundles from Bundle Dispatch
-    for row in doc.bundles:
-        if row.bundle:
-            received_bundle.append("bundles", {
-                "bundle": row.bundle
-            })
-
-    # Save Draft Received Bundle
-    received_bundle.insert(ignore_permissions=True)
-
-# --------------------------------------------------
-#  create route receipt
-# ----------------------------------
+    # --------------------------------------------------
+    #  Create Route Receipts (First)
+    # --------------------------------------------------
     route_doc = frappe.get_doc("Route", doc.route)
+    created_route_receipts = []
 
     for row in route_doc.branches:
-
         route_receipt = frappe.new_doc("Route Receipt")
         route_receipt.route = route_doc.name
         route_receipt.branch = row.branch
@@ -122,18 +92,75 @@ def create_stock_entry_on_submit(doc, method):
         route_receipt.to_branch = doc.to_branch
         route_receipt.dispatched_on = nowdate()
         route_receipt.bundle_dispatch = doc.name
+
         for i in doc.bundles:
             if i.bundle:
                 route_receipt.append("bundle", {
                     "bundle": i.bundle
                 })
 
-
         route_receipt.insert(ignore_permissions=True)
+        created_route_receipts.append({
+            "route_receipt": route_receipt.name,
+            "branch": row.branch
+        })
+
+    # --------------------------------------------------
+    #  Create Received Bundle (After Route Receipts)
+    # --------------------------------------------------
+    received_bundle = frappe.new_doc("Received Bundle")
+    received_bundle.from_warehouse = doc.transit_warehouse
+    received_bundle.to_warehouse = doc.to_warehouse
+    received_bundle.from_branch = doc.from_branch
+    received_bundle.to_branch = doc.to_branch
+    received_bundle.route = doc.route
+    received_bundle.bundle_dispatch = doc.name
+    received_bundle.date = frappe.utils.nowdate()
+
+    # Copy bundles
+    for row in doc.bundles:
+        if row.bundle:
+            received_bundle.append("bundles", {"bundle": row.bundle})
+
+    #  Add created Route Receipts to 'route_receipt_details' child table
+    for rr in created_route_receipts:
+        received_bundle.append("route_receipt_details", {
+            "route": rr["branch"],
+            "status": frappe.db.get_value("Route Receipt", rr["route_receipt"], "workflow_state") or "Pending",
+            "route_receipt": rr["route_receipt"]
+        })
+
+    received_bundle.insert(ignore_permissions=True)
 
 
-    frappe.msgprint(f"Received Bundle <b>{received_bundle.name}</b> created for Bundle Dispatch <b>{doc.name}</b>.")
-  
+
+def update_received_bundle_status(doc, method):
+    """
+    Triggered when Route Receipt is validated.
+    Updates the corresponding 'status' field inside the
+    Received Bundle's route_receipt_details table.
+    """
+    if not doc.bundle_dispatch:
+        return
+
+    received_bundles = frappe.get_all(
+        "Received Bundle",
+        filters={"bundle_dispatch": doc.bundle_dispatch},
+        fields=["name"]
+    )
+
+    for rb in received_bundles:
+        rb_doc = frappe.get_doc("Received Bundle", rb.name)
+        updated = False
+
+        for row in rb_doc.route_receipt_details:
+            if row.route_receipt == doc.name:
+                row.status = doc.workflow_state or "Pending"
+                updated = True
+
+        if updated:
+            rb_doc.save(ignore_permissions=True)
+
 
 
 @frappe.whitelist()

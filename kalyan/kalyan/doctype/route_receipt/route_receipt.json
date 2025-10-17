@@ -29,6 +29,7 @@
    "fieldname": "from_branch",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "From Branch",
    "options": "Branch"
   },
@@ -36,6 +37,7 @@
    "fieldname": "to_branch",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "To Branch",
    "options": "Branch"
   },
@@ -102,9 +104,8 @@
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
- "is_submittable": 1,
  "links": [],
- "modified": "2025-10-17 10:35:28.987675",
+ "modified": "2025-10-17 16:38:24.330679",
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Route Receipt",
@@ -121,7 +122,6 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
-   "submit": 1,
    "write": 1
   }
  ],
