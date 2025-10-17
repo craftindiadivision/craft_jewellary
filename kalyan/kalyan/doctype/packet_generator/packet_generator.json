@@ -7,7 +7,6 @@
  "engine": "InnoDB",
  "field_order": [
   "section_break_zvuf",
-  "purpose",
   "from_branch",
   "source_warehouse",
   "to_be_delivered",
@@ -49,7 +48,8 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "From Branch",
-   "options": "Branch"
+   "options": "Branch",
+   "reqd": 1
   },
   {
    "fieldname": "source_warehouse",
@@ -67,7 +67,8 @@
    "fieldname": "to_branch",
    "fieldtype": "Link",
    "label": "To Branch",
-   "options": "Branch"
+   "options": "Branch",
+   "reqd": 1
   },
   {
    "fieldname": "target_warehouse",
@@ -155,19 +156,13 @@
    "fieldtype": "Float",
    "label": "Total Packet Value",
    "read_only": 1
-  },
-  {
-   "fieldname": "purpose",
-   "fieldtype": "Select",
-   "label": "Purpose",
-   "options": "\nTo Branch\nTo Franchise"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-10-10 14:13:27.669158",
+ "modified": "2025-10-10 14:48:52.713703",
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Packet Generator",
