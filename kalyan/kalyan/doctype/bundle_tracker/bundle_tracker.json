@@ -16,29 +16,26 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Route",
-   "options": "Route",
-   "read_only": 1
+   "options": "Route"
   },
   {
    "fieldname": "status",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Status",
-   "read_only": 1
+   "label": "Status"
   },
   {
    "fieldname": "route_receipt",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Route Receipt",
-   "read_only": 1
+   "label": "Route Receipt"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-10-17 15:36:51.773551",
+ "modified": "2025-10-17 17:26:43.514122",
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Bundle Tracker",

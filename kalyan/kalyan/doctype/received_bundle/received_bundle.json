@@ -21,7 +21,9 @@
   "bundles",
   "naming_series",
   "bundle_dispatch",
-  "amended_from"
+  "amended_from",
+  "section_break_nrcx",
+  "route_receipt_details"
  ],
  "fields": [
   {
@@ -122,13 +124,23 @@
    "label": "To Branch",
    "options": "Branch",
    "read_only": 1
+  },
+  {
+   "fieldname": "section_break_nrcx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "route_receipt_details",
+   "fieldtype": "Table",
+   "label": "Route Tracker",
+   "options": "Bundle Tracker"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-10-17 15:14:26.915667",
+ "modified": "2025-10-17 17:25:56.161324",
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Received Bundle",
