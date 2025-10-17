@@ -34,7 +34,7 @@ def create_stock_entry_on_submit(doc, method):
     stock_entry.stock_entry_type = "Material Transfer"
     stock_entry.add_to_transit = 1
     stock_entry.from_warehouse = doc.from_warehouse
-    stock_entry.to_warehouse = doc.courier_agent
+    stock_entry.to_warehouse = doc.transit_warehouse
     stock_entry.bundle_dispatch = doc.name
     # stock_entry.branch = doc.branch
     
@@ -88,7 +88,7 @@ def create_stock_entry_on_submit(doc, method):
     # Create Received Bundle (Draft)
     # --------------------------
     received_bundle = frappe.new_doc("Received Bundle")
-    received_bundle.from_warehouse = doc.courier_agent  # courier agent acts as source
+    received_bundle.from_warehouse = doc.transit_warehouse  # courier agent acts as source
     received_bundle.to_warehouse = doc.to_warehouse
     received_bundle.route = doc.route
     received_bundle.bundle_dispatch = doc.name
