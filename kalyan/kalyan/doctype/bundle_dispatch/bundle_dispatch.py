@@ -63,7 +63,7 @@ def create_stock_entry_on_submit(doc, method):
                     items.append({
                         "item_code": item_row.item_code,
                         "s_warehouse": doc.from_warehouse,
-                        "t_warehouse": doc.courier_agent,
+                        "t_warehouse": doc.transit_warehouse,
                         "qty": item_row.qty or 1,
                         "uom": item_row.uom or "",
                         "branch":branch,
