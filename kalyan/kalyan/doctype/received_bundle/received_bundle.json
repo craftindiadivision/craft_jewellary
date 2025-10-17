@@ -111,7 +111,8 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "From Branch",
-   "options": "Branch"
+   "options": "Branch",
+   "read_only": 1
   },
   {
    "fieldname": "to_branch",
@@ -119,14 +120,15 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "To Branch",
-   "options": "Branch"
+   "options": "Branch",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-10-17 14:56:58.476847",
+ "modified": "2025-10-17 15:14:26.915667",
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Received Bundle",

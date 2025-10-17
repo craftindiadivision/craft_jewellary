@@ -40,7 +40,7 @@
   },
   {
    "fieldname": "to_warehouse",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "label": "To Warehouse",
    "options": "Warehouse"
   },
@@ -104,13 +104,15 @@
   },
   {
    "fieldname": "to_branch",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "label": "To Branch",
    "options": "Branch"
   },
   {
+   "fetch_from": "courier_agent.custom_warehouse",
    "fieldname": "transit_warehouse",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Transit Warehouse",
    "options": "Warehouse"
   }
@@ -128,7 +130,7 @@
    "link_fieldname": "bundle_dispatch"
   }
  ],
- "modified": "2025-10-17 10:56:01.404411",
+ "modified": "2025-10-17 15:39:53.607895",
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Bundle Dispatch",

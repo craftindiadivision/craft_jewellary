@@ -46,6 +46,7 @@
   {
    "fieldname": "from_branch",
    "fieldtype": "Link",
+   "ignore_user_permissions": 1,
    "in_list_view": 1,
    "label": "From Branch",
    "options": "Branch",
@@ -54,6 +55,7 @@
   {
    "fieldname": "source_warehouse",
    "fieldtype": "Link",
+   "ignore_user_permissions": 1,
    "in_list_view": 1,
    "label": "Source Warehouse",
    "options": "Warehouse",
@@ -66,6 +68,7 @@
   {
    "fieldname": "to_branch",
    "fieldtype": "Link",
+   "ignore_user_permissions": 1,
    "label": "To Branch",
    "options": "Branch",
    "reqd": 1
@@ -73,6 +76,7 @@
   {
    "fieldname": "target_warehouse",
    "fieldtype": "Link",
+   "ignore_user_permissions": 1,
    "label": "Target Warehouse",
    "options": "Warehouse"
   },
@@ -164,7 +168,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-10-17 14:27:40.578889",
+ "modified": "2025-10-17 15:44:25.503769",
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Packet Generator",

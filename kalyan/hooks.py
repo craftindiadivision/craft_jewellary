@@ -8,6 +8,13 @@ app_license = "mit"
 # Apps
 # ------------------
 
+
+fixtures = [
+    {"dt":"Custom Field",
+     "filters":[
+         ["dt","in",("Supplier")]
+     ]}
+]
 # required_apps = []
 
 # Each item in the list will be shown as an app in the apps page

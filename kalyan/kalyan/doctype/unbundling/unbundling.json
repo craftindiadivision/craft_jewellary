@@ -6,9 +6,13 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "bundle",
-  "column_break_kqyk",
+  "to_branch",
   "source_warehouse",
+  "status",
+  "column_break_kqyk",
+  "from_branch",
+  "bundle",
+  "received_bundle",
   "section_break_ehmw",
   "packing_items",
   "section_break_kyqo",
@@ -34,7 +38,9 @@
   {
    "fieldname": "source_warehouse",
    "fieldtype": "Link",
-   "label": "Source Warehouse",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Desk",
    "options": "Warehouse"
   },
   {
@@ -54,7 +60,7 @@
   {
    "fieldname": "locker",
    "fieldtype": "Link",
-   "label": "Target Locker",
+   "label": "Target Location",
    "options": "Warehouse"
   },
   {
@@ -99,13 +105,42 @@
    "hidden": 1,
    "label": "Transferred Items",
    "options": "Packet Item"
+  },
+  {
+   "fieldname": "received_bundle",
+   "fieldtype": "Link",
+   "label": "Received Bundle",
+   "options": "Received Bundle"
+  },
+  {
+   "fieldname": "from_branch",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "From Branch"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Bundled\nPartially Unbundled\nFully Unbundled"
+  },
+  {
+   "fieldname": "to_branch",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Branch",
+   "options": "Branch"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-10-10 14:23:31.340461",
+ "modified": "2025-10-17 15:59:50.293276",
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Unbundling",

@@ -276,6 +276,15 @@ frappe.ui.form.on("Unbundling", {
             frm.set_df_property("custom_locker_select", "read_only", 1);
             frm.set_df_property("custom_selected_items", "read_only", 1);
         }
+    },
+    setup(frm) {
+        frm.set_query('locker', function() {
+            return {
+                filters: {
+                    custom_branch: frm.doc.branch
+                }
+            };
+        });
     }
 });
 
@@ -317,21 +326,28 @@ function create_stock_transfer(frm) {
 }
 // frappe.ui.form.on('Unbundling', {
 //     setup: function(frm) {
-//         frappe.call({
-//             method:"kalyan.kalyan.doctype.unbundling.unbundling.get_bundles",
-//             args:{
-//                 received_bundle:frm.doc.received_bundle
-//             },
-//             callback:function(r){
-//                 if(r.message){
-//                     frm.set_query("bundle",function(){
-//                         return{
-//                             filters:[["name","in",r.message]]
-//                         }
-//                     })
-//                 }
-//             }
-//         })
+//         // frappe.call({
+//         //     method:"kalyan.kalyan.doctype.unbundling.unbundling.get_bundles",
+//         //     args:{
+//         //         received_bundle:frm.doc.received_bundle
+//         //     },
+//         //     callback:function(r){
+//         //         if(r.message){
+//         //             frm.set_query("bundle",function(){
+//         //                 return{
+//         //                     filters:[["name","in",r.message]]
+//         //                 }
+//         //             })
+//         //         }
+//         //     }
+//         // })
+//         //         frm.set_query("bundle", function() {
+//         //     return {
+//         //         filters: {
+//         //             received_bundle: frm.doc.received_bundle
+//         //         }
+//         //     };
+//         // });
 //     }
 // });
 

@@ -85,13 +85,14 @@ def create_stock_entry_on_submit(doc, method):
     stock_entry.insert(ignore_permissions=True)
     stock_entry.submit()
 
-    frappe.msgprint(f"Stock Entry <b>{stock_entry.name}</b> created successfully for Received Bundle <b>{doc.name}</b>.")
+    frappe.msgprint(f"Bundle Received Successfully")
 
 # received_bundle.py
 
 
 @frappe.whitelist()
 def unbundle_bundles(source_name, target_doc=None):
+    print(33333333333)
     """
     Map Received Bundle to Unbundling Doc
     """
@@ -106,7 +107,9 @@ def unbundle_bundles(source_name, target_doc=None):
             "Received Bundle": {
                 "doctype": "Unbundling",
                 "field_map": {
-                    "to_warehouse": "source_warehouse"
+                    "to_warehouse": "source_warehouse",
+                    "from_branch":"from_branch",
+                    "to_branch":"to_branch"
                 },
             },
             
