@@ -3,6 +3,7 @@
 
 import frappe
 from frappe.model.document import Document
+from frappe.model.mapper import get_mapped_doc
 
 class ReceivedBundle(Document):
     pass
@@ -85,3 +86,32 @@ def create_stock_entry_on_submit(doc, method):
     stock_entry.submit()
 
     frappe.msgprint(f"Stock Entry <b>{stock_entry.name}</b> created successfully for Received Bundle <b>{doc.name}</b>.")
+
+# received_bundle.py
+
+
+@frappe.whitelist()
+def unbundle_bundles(source_name, target_doc=None):
+    """
+    Map Received Bundle to Unbundling Doc
+    """
+    def set_missing_values(source, target):
+        # Set the to_warehouse from Received Bundle
+        target.source_warehouse = source.to_warehouse
+        target.received_bundle = source.name
+
+    # Map the child table only with bundles
+    doc = get_mapped_doc(
+        "Received Bundle", source_name, {
+            "Received Bundle": {
+                "doctype": "Unbundling",
+                "field_map": {
+                    "to_warehouse": "source_warehouse"
+                },
+            },
+            
+        },
+        target_doc,
+        postprocess=set_missing_values
+    )
+    return doc

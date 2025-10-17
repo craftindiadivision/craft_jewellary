@@ -7,8 +7,10 @@
  "engine": "InnoDB",
  "field_order": [
   "section_break_sswg",
+  "from_branch",
   "from_warehouse",
   "column_break_xdye",
+  "to_branch",
   "to_warehouse",
   "column_break_dzjq",
   "route",
@@ -44,7 +46,7 @@
   {
    "fieldname": "to_warehouse",
    "fieldtype": "Link",
-   "label": "To Warehouse",
+   "label": "Desk",
    "options": "Warehouse"
   },
   {
@@ -100,13 +102,25 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "from_branch",
+   "fieldtype": "Link",
+   "label": "From Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "to_branch",
+   "fieldtype": "Link",
+   "label": "To Branch",
+   "options": "Branch"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-10-17 10:36:04.271174",
+ "modified": "2025-10-17 14:21:00.021431",
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Received Bundle",

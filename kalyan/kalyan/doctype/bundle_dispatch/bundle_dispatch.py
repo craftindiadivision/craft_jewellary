@@ -90,6 +90,8 @@ def create_stock_entry_on_submit(doc, method):
     received_bundle = frappe.new_doc("Received Bundle")
     received_bundle.from_warehouse = doc.transit_warehouse  # courier agent acts as source
     received_bundle.to_warehouse = doc.to_warehouse
+    received_bundle.from_branch=doc.from_branch
+    received_bundle.to_branch=doc.to_branch
     received_bundle.route = doc.route
     received_bundle.bundle_dispatch = doc.name
     received_bundle.date = frappe.utils.nowdate()
