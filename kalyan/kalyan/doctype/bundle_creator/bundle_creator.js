@@ -395,6 +395,7 @@ function open_unbundle_dialog(frm) {
 
                                 swap_item_between_packets(from_packet_name, to_packet_name, item.name, d);
                                 d.set_value('barcode', ''); 
+                                d.get_field('barcode').$input.focus();
                             }
                         });
                     },
@@ -412,8 +413,8 @@ function open_unbundle_dialog(frm) {
                     options: '<div id="packet-comparison" style="padding:10px;">Select packets to compare...</div>'
                 }
             ],
-            primary_action_label: 'Close',
-            primary_action() { d.hide(); }
+            // primary_action_label: 'Close',
+            // primary_action() { d.hide(); }
         });
 
         d.show();
