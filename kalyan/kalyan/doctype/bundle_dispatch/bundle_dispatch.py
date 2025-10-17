@@ -91,6 +91,7 @@ def create_stock_entry_on_submit(doc, method):
     received_bundle.from_warehouse = doc.courier_agent  # courier agent acts as source
     received_bundle.to_warehouse = doc.to_warehouse
     received_bundle.route = doc.route
+    received_bundle.bundle_dispatch = doc.name
     received_bundle.date = frappe.utils.nowdate()
     # received_bundle.workflow_state = "Pending"
     # received_bundle.bundle_dispatch = doc.name  # optional link
@@ -118,6 +119,7 @@ def create_stock_entry_on_submit(doc, method):
         route_receipt.from_branch = doc.from_branch
         route_receipt.to_branch = doc.to_branch
         route_receipt.dispatched_on = nowdate()
+        route_receipt.bundle_dispatch = doc.name
         for i in doc.bundles:
             if i.bundle:
                 route_receipt.append("bundle", {
@@ -145,3 +147,17 @@ def get_matching_bundles(to_be_delivered):
     bundles = frappe.get_all("Bundle Creator", filters=filters, fields=["name"])
     
     return bundles or []
+
+@frappe.whitelist()
+def get_transporters():
+    """
+    Fetch all Suppliers where 'Is Transporter' is checked.
+    """
+    transporters = frappe.get_all(
+        "Supplier",
+        filters={"is_transporter": 1},
+        fields=["name", "supplier_name"]
+    )
+
+    return transporters
+

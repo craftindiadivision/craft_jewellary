@@ -17,7 +17,9 @@
   "status",
   "section_break_ykxz",
   "bundles",
-  "naming_series"
+  "naming_series",
+  "bundle_dispatch",
+  "amended_from"
  ],
  "fields": [
   {
@@ -83,13 +85,28 @@
    "in_standard_filter": 1,
    "label": "Status",
    "read_only": 1
+  },
+  {
+   "fieldname": "bundle_dispatch",
+   "fieldtype": "Data",
+   "label": "Bundle Dispatch"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Received Bundle",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-10-10 14:05:26.007238",
+ "modified": "2025-10-17 10:36:04.271174",
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Received Bundle",

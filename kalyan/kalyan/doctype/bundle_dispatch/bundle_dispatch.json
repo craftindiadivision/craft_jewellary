@@ -7,14 +7,17 @@
  "engine": "InnoDB",
  "field_order": [
   "section_break_sswg",
+  "from_branch",
   "from_warehouse",
-  "to_be_delivered",
   "column_break_xdye",
+  "to_branch",
   "to_warehouse",
   "column_break_dzjq",
   "courier_agent",
+  "transit_warehouse",
   "column_break_sljy",
   "route",
+  "to_be_delivered",
   "section_break_ykxz",
   "bundles",
   "amended_from",
@@ -49,7 +52,7 @@
    "fieldname": "courier_agent",
    "fieldtype": "Link",
    "label": "Courier Agent",
-   "options": "Warehouse"
+   "options": "Supplier"
   },
   {
    "fieldname": "column_break_sljy",
@@ -92,13 +95,40 @@
    "fieldname": "to_be_delivered",
    "fieldtype": "Date",
    "label": "To be Delivered"
+  },
+  {
+   "fieldname": "from_branch",
+   "fieldtype": "Link",
+   "label": "From Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "to_branch",
+   "fieldtype": "Link",
+   "label": "To Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "transit_warehouse",
+   "fieldtype": "Link",
+   "label": "Transit Warehouse",
+   "options": "Warehouse"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
- "links": [],
- "modified": "2025-10-10 10:57:51.383888",
+ "links": [
+  {
+   "link_doctype": "Route Receipt",
+   "link_fieldname": "bundle_dispatch"
+  },
+  {
+   "link_doctype": "Received Bundle",
+   "link_fieldname": "bundle_dispatch"
+  }
+ ],
+ "modified": "2025-10-17 10:56:01.404411",
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Bundle Dispatch",

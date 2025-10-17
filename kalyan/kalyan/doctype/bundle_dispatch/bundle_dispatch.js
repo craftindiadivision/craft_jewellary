@@ -45,6 +45,47 @@ function fetch_matching_bundles(frm) {
     }
 }
 frappe.ui.form.on('Bundle Dispatch', {
+     setup: function(frm) {
+        frm.set_query("courier_agent", function() {
+            return {
+                filters: {
+                    "is_transporter": 1
+                }
+            };
+        });
+        frm.set_query("from_warehouse", function() {
+            return {
+                filters: {
+                    "is_group": 0
+                }
+            };
+        });
+        frm.set_query("from_warehouse", function() {
+            return {
+                filters: {
+                    "to_warehouse": 0
+                }
+            };
+        });
+          frm.set_query("transit_warehouse", function() {
+            return {
+                filters: {
+                    warehouse_type: "Transit"
+                }
+            };
+        });
+          frm.set_query("from_warehouse", function() {
+            if (frm.doc.from_branch) {
+                return {
+                    filters: {
+                        "custom_branch": frm.doc.from_branch
+                    }
+                };
+            }
+        });
+    
+    },
+
     refresh: function(frm) {
         // Show E-Way Bill button always (or you can conditionally show it)
         frm.add_custom_button(__('E-Way Bill'), function() {

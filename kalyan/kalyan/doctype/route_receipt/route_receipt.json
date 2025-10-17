@@ -17,7 +17,8 @@
   "section_break_cczk",
   "bundle",
   "naming_series",
-  "amended_from"
+  "amended_from",
+  "bundle_dispatch"
  ],
  "fields": [
   {
@@ -92,13 +93,18 @@
    "fieldtype": "Link",
    "label": "Branch",
    "options": "Branch"
+  },
+  {
+   "fieldname": "bundle_dispatch",
+   "fieldtype": "Data",
+   "label": "Bundle Dispatch"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-10-10 14:07:24.969107",
+ "modified": "2025-10-17 10:35:28.987675",
  "modified_by": "Administrator",
  "module": "kalyan",
  "name": "Route Receipt",
